@@ -7,5 +7,10 @@ class HelloView(APIView):
     permission_classes = (IsAuthenticated,)  
 
     def get(self, request):
-        content = { 'message': 'Hello, World!'}
+        content = { 'message': 'Not a ping-pong game!'}
+        if 'status' in request.data:
+            if request.data['status'] == 'ping':
+                content['message'] = 'pong'
+            elif request.data['status'] == 'pong':
+                content['message'] = 'ping'
         return Response(content)
